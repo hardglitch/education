@@ -1,4 +1,4 @@
-pub fn gcd(mut u: i64, mut v: i64) -> i64
+pub fn gcd(mut u: isize, mut v: isize) -> isize
 {
     if u == 0 { return v; }
     else if v == 0 { return u; }
