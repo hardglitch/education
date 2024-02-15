@@ -1,4 +1,4 @@
-use education::sl_list::List;
+use education::stack_sl_list::List;
 
 fn main() {
     let mut list: List<i32> = List::default();

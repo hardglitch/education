@@ -26,29 +26,9 @@ impl<T> List<T> {
         })
     }
 
-    pub fn peek(&self) -> Option<&T> {
-        self.head.as_ref().map(|node| {
-            &node.elem
-        })
+    pub fn is_empty(&self) -> bool {
+        self.head.is_none()
     }
-
-    pub fn peek_mut(&mut self) -> Option<&mut T> {
-        self.head.as_mut().map(|node| {
-            &mut node.elem
-        })
-    }
-
-    // pub fn into_iter(self) -> IntoIter<T> {
-    //     IntoIter(self)
-    // }
-    //
-    // pub fn iter(&self) -> Iter<'_, T> {
-    //     Iter { next: self.head.as_deref() }
-    // }
-    //
-    // pub fn iter_mut(&mut self) -> IterMut<'_, T> {
-    //     IterMut { next: self.head.as_deref_mut() }
-    // }
 }
 
 impl<T> Drop for List<T> {
@@ -57,5 +37,25 @@ impl<T> Drop for List<T> {
         while let Some(mut boxed_node) = cur_link {
             cur_link = boxed_node.next.take();
         }
+    }
+}
+
+
+#[cfg(test)]
+mod test_stack {
+    use crate::stack_sl_list::*;
+    #[test]
+    fn test_is_empty1_pos() {
+        let mut l = List::default();
+        l.push(1);
+        l.pop();
+        assert!(l.is_empty());
+    }
+
+    #[test]
+    fn test_is_empty1_neg() {
+        let mut l = List::default();
+        l.push(1);
+        assert!(!l.is_empty());
     }
 }
