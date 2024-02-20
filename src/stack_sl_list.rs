@@ -8,9 +8,7 @@ struct Node<T> {
 pub struct List<T> {
     head: Option<Box<Node<T>>>,
 }
-
 impl<T> List<T> {
-
     pub fn push(&mut self, elem: T) {
         let old_head = self.head.take();
         self.head = Some(Box::new(Node {
@@ -30,7 +28,6 @@ impl<T> List<T> {
         self.head.is_none()
     }
 }
-
 impl<T> Drop for List<T> {
     fn drop(&mut self) {
         let mut cur_link = self.head.take();
@@ -40,6 +37,7 @@ impl<T> Drop for List<T> {
     }
 }
 
+// -----------------------------------------------------------
 
 #[cfg(test)]
 mod test_stack {

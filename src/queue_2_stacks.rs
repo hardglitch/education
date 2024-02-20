@@ -16,7 +16,7 @@ impl<T> Queue<T> {
             Some(elem) => { Some(elem) },
             None => {
                 if !self.ls.is_empty() {
-                    self.move_from_ls_to_rs();
+                    self.remove_from_ls_to_rs();
                     return self.dequeue()
                 }
                 None
@@ -24,12 +24,14 @@ impl<T> Queue<T> {
         }
     }
 
-    fn move_from_ls_to_rs(&mut self) {
+    fn remove_from_ls_to_rs(&mut self) {
         while let Some(a) = self.ls.pop() {
             self.rs.push(a);
         }
     }
 }
+
+// -----------------------------------------------------------
 
 #[cfg(test)]
 mod test_queue {
