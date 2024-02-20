@@ -1,12 +1,11 @@
 use std::fmt::Debug;
-use std::ops::{Add, AddAssign};
 use rand::{Rng, thread_rng};
 
 #[derive(Debug)]
 pub struct Sort<'a, T> {
     data: &'a mut[T]
 }
-impl<'a, T> Sort<'a, T> where T: PartialOrd + Debug + Copy + Sized + Add + From<usize> + Into<usize> + AddAssign {
+impl<'a, T> Sort<'a, T> where T: PartialOrd + Debug + Copy {
 
     pub fn new(arr: &'a mut[T]) -> Self {
         Self { data: arr }
