@@ -11,7 +11,7 @@ impl<'a, T> Sort<'a, T> where T: PartialOrd + Debug + Copy {
         Self { data: arr }
     }
 
-    pub fn bubble(&'a mut self) {
+    pub fn bubble(&mut self) {
         let mut i: usize = 0;
         let mut t = true;
         let l = self.data.len();
@@ -29,7 +29,7 @@ impl<'a, T> Sort<'a, T> where T: PartialOrd + Debug + Copy {
         println!("Bubble Sort {:?}", self.data);
     }
 
-    pub fn selection(&'a mut self) {
+    pub fn selection(&mut self) {
         for i in 0..self.data.len() {
             let mut min_idx = i;
             for j in i+1..self.data.len() {
@@ -42,7 +42,7 @@ impl<'a, T> Sort<'a, T> where T: PartialOrd + Debug + Copy {
         println!("Selection Sort {:?}", self.data);
     }
 
-    pub fn insertion(&'a mut self) {
+    pub fn insertion(&mut self) {
         for i in 1..self.data.len() {
             let mut j = i;
             while j > 0 && self.data[j] < self.data[j-1] {
@@ -53,7 +53,7 @@ impl<'a, T> Sort<'a, T> where T: PartialOrd + Debug + Copy {
         println!("Insertion Sort {:?}", self.data);
     }
 
-    pub fn heapsort(&'a mut self) {
+    pub fn heapsort(&mut self) {
         let l = self.data.len();
 
         for i in (0..l/2).rev() {
@@ -92,11 +92,11 @@ impl<'a, T> Sort<'a, T> where T: PartialOrd + Debug + Copy {
     }
     fn _quicksort(arr: &mut [T], left: isize, right: isize) {
         if left >= right { return; }
-        let p = Self::partition(arr, left, right);
+        let p = Self::_partition(arr, left, right);
         Self::_quicksort(arr, left, p - 1);
         Self::_quicksort(arr, p + 1, right);
     }
-    fn partition(arr: &mut [T], left: isize, right: isize) -> isize {
+    fn _partition(arr: &mut [T], left: isize, right: isize) -> isize {
         let pivot = arr[right as usize];
         let mut i = left - 1;
 
@@ -107,6 +107,56 @@ impl<'a, T> Sort<'a, T> where T: PartialOrd + Debug + Copy {
             else { break; }
         }
         i
+    }
+
+    pub fn mergesort(&mut self) {
+        let l = self.data.len() - 1;
+        Self::_mergesort(self.data, 0, l as isize);
+        println!("Mergesort {:?}", self.data);
+    }
+    fn _mergesort(arr: &mut [T], left: isize, right: isize) {
+        if left >= right { return; }
+        let mid = left + (right - left)/2;
+        Self::_mergesort(arr, left, mid);
+        Self::_mergesort(arr, mid+1, right);
+        Self::_merge(arr, left, mid, right);
+    }
+
+    fn _merge(arr: &mut [T], left: isize, mid: isize, right: isize) {
+        let mut out = Vec::<T>::new();
+        let mut a = left;
+        let mut b = mid + 1;
+
+        while a <= mid && b <= right {
+            if arr[a as usize] < arr[b as usize] {
+                if let Some(e) = arr.get(a as usize) {
+                    out.push(*e);
+                }
+                a += 1;
+            } else {
+                if let Some(e) = arr.get(b as usize) {
+                    out.push(*e);
+                }
+                b += 1;
+            }
+        }
+        while a <= mid {
+            if let Some(e) = arr.get(a as usize) {
+                out.push(*e);
+            }
+            a += 1;
+        }
+        while b <= right {
+            if let Some(e) = arr.get(b as usize) {
+                out.push(*e);
+            }
+            b += 1;
+        }
+        for j in left..=right {
+            if let Some(e) = out.get((j-left) as usize) {
+                arr[j as usize] = *e;
+            }
+        }
     }
 }
 

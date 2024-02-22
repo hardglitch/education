@@ -20,4 +20,8 @@ fn main() {
     arr = gen_arr(30);
     s = Sort::new(&mut arr);
     s.quicksort();
+
+    arr = gen_arr(30);
+    s = Sort::new(&mut arr);
+    s.mergesort();
 }
