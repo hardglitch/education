@@ -1,11 +1,12 @@
 use std::fmt::Debug;
 use rand::{Rng, thread_rng};
+use serde::Serialize;
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 pub struct Sort<'a, T> {
     data: &'a mut[T]
 }
-impl<'a, T> Sort<'a, T> where T: PartialOrd + Debug + Copy {
+impl<'a, T> Sort<'a, T> where T: PartialOrd + Debug + Copy + Serialize {
 
     pub fn new(arr: &'a mut[T]) -> Self {
         Self { data: arr }
@@ -113,6 +114,9 @@ impl<'a, T> Sort<'a, T> where T: PartialOrd + Debug + Copy {
         let l = self.data.len() - 1;
         Self::_mergesort(self.data, 0, l as isize);
         println!("Mergesort {:?}", self.data);
+        // let mut file = File::create("result.txt").unwrap();
+        // let res = serde_json::to_string(self.data).expect("Some Error");
+        // file.write_all(res.as_bytes()).unwrap();
     }
     fn _mergesort(arr: &mut [T], left: isize, right: isize) {
         if left >= right { return; }
@@ -165,7 +169,7 @@ pub fn gen_arr(len: usize) -> Vec<usize> {
     let mut v = Vec::<usize>::with_capacity(len);
     for _ in 0..len {
         let mut rng = thread_rng();
-        let a = rng.gen_range(0..1000);
+        let a = rng.gen_range(0..len);
         v.push(a);
     }
     // println!("Generated Array {:?}", v);

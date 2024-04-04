@@ -2,8 +2,6 @@
 #![feature(let_chains)]
 #![feature(slice_pattern)]
 
-extern crate core;
-
 pub mod gcd;
 pub mod stack_sl_list;
 pub mod binary_search;
