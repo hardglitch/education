@@ -1,4 +1,3 @@
-#![feature(isqrt)]
 #![feature(let_chains)]
 #![feature(slice_pattern)]
 

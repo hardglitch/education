@@ -1,2 +1,8 @@
-/target
-/.idea
+*
+!cargo.toml
+!cargo.lock
+!LICENSE
+!/src/
+!/src/*.rs
+!/examples/
+!/examples/*.rs
